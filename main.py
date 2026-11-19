@@ -2,6 +2,45 @@
 # Fase 4
 # Sistema Integral de Gestion de Clientes, Servicios y Reservas
 
+# datos incorrectos
+class DatosInvalidosError(Exception):
+    pass
+
+
+# gestion de clientes
+class Cliente:
+    def __init__(self, nombre, documento, correo):
+        self.nombre = nombre
+        self.documento = documento
+        self.correo = correo
+        self.validar_datos()
+
+    def validar_datos(self):
+        try:
+            if not self.nombre.strip():
+                raise DatosInvalidosError(
+                    "El nombre no puede estar vacio"
+                )
+
+            if not str(self.documento).isdigit():
+                raise DatosInvalidosError(
+                    "El documento debe contener solo numeros"
+                )
+
+            if "@" not in self.correo:
+                raise DatosInvalidosError(
+                    "El correo electronico no es valido"
+                )
+
+        except DatosInvalidosError as error:
+            print(f"Error al registrar cliente: {error}")
+            raise
+
+    def mostrar_cliente(self):
+        print(f"Nombre: {self.nombre}")
+        print(f"Documento: {self.documento}")
+        print(f"Correo: {self.correo}")
+
 def main():
     print("======================================")
     print(" SISTEMA DE GESTION - SOFTWARE FJ")
