@@ -51,9 +51,9 @@ def main():
     print("\nPRUEBA 1: Cliente valido")
     try:
         cliente1 = Cliente(
-            "Carlos Perez",
+            "Milton Rojas",
             "123456789",
-            "carlos@gmail.com"
+            "milro@gmail.com"
         )
         cliente1.mostrar_cliente()
     except DatosInvalidosError:
