@@ -18,7 +18,7 @@ def registrar_cliente():
 
 ventana = tk.Tk()
 ventana.title("Sistema Integral de Gestión - Fase 4")
-ventana.geometry("450x350")
+ventana.geometry("600x600")
 
 tk.Label(ventana, text="REGISTRO DE CLIENTES",
          font=("Arial", 16, "bold")).pack(pady=15)
@@ -37,5 +37,29 @@ entrada_correo.pack()
 
 tk.Button(ventana, text="Registrar cliente",
           command=registrar_cliente).pack(pady=20)
+tk.Label(
+    ventana,
+    text="GESTIÓN DE SERVICIOS Y RESERVAS",
+    font=("Arial", 14, "bold")
+).pack(pady=15)
 
+tk.Label(
+    ventana,
+    text="Seleccione el tipo de servicio:"
+).pack(pady=5)
+
+tipo_servicio = tk.StringVar(value="Reserva de sala")
+
+opciones_servicio = [
+    "Reserva de sala",
+    "Alquiler de equipo",
+    "Asesoría especializada"
+]
+
+menu_servicios = tk.OptionMenu(
+    ventana,
+    tipo_servicio,
+    *opciones_servicio
+)
+menu_servicios.pack(pady=10)
 ventana.mainloop()
