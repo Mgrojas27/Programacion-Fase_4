@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from main import Cliente, DatosInvalidosError
+from main import Cliente, DatosInvalidosError, ReservaSala
 
 def registrar_cliente():
     nombre = entrada_nombre.get().strip()
@@ -15,6 +15,29 @@ def registrar_cliente():
         )
     except DatosInvalidosError as error:
         messagebox.showerror("Error", str(error))
+def calcular_reserva():
+    try:
+        nombre = entrada_sala.get().strip()
+        tarifa = float(entrada_tarifa.get())
+        capacidad = int(entrada_capacidad.get())
+        duracion = float(entrada_duracion.get())
+
+        if not nombre:
+            raise DatosInvalidosError("Ingrese el nombre de la sala")
+
+        sala = ReservaSala(nombre, tarifa, capacidad)
+        costo = sala.calcular_costo(duracion)
+
+        messagebox.showinfo(
+            "Costo de reserva",
+            f"El costo total es: ${costo:,.2f}"
+        )
+
+    except (ValueError, DatosInvalidosError) as error:
+        messagebox.showerror(
+            "Error",
+            f"Verifique los datos ingresados: {error}"
+        )
 
 ventana = tk.Tk()
 ventana.title("Sistema Integral de Gestión - Fase 4")
@@ -62,4 +85,23 @@ menu_servicios = tk.OptionMenu(
     *opciones_servicio
 )
 menu_servicios.pack(pady=10)
+tk.Label(ventana, text="Nombre de la sala:").pack()
+entrada_sala = tk.Entry(ventana, width=25)
+entrada_sala.pack()
+tk.Label(ventana, text="Tarifa por hora ($):").pack()
+entrada_tarifa = tk.Entry(ventana, width=25)
+entrada_tarifa.pack()
+
+tk.Label(ventana, text="Capacidad de la sala (personas):").pack()
+entrada_capacidad = tk.Entry(ventana, width=25)
+entrada_capacidad.pack()
+
+tk.Label(ventana, text="Duración de la reserva (horas):").pack()
+entrada_duracion = tk.Entry(ventana, width=25)
+entrada_duracion.pack()
+tk.Button(
+    ventana,
+    text="Calcular costo de reserva",
+    command=calcular_reserva
+).pack(pady=10)
 ventana.mainloop()
