@@ -1,19 +1,20 @@
 import tkinter as tk
 from tkinter import messagebox
+from main import Cliente, DatosInvalidosError
 
 def registrar_cliente():
     nombre = entrada_nombre.get().strip()
     documento = entrada_documento.get().strip()
     correo = entrada_correo.get().strip()
 
-    if not nombre:
-        messagebox.showerror("Error", "El nombre no puede estar vacío")
-    elif not documento.isdigit():
-        messagebox.showerror("Error", "El documento debe contener solo números")
-    elif "@" not in correo:
-        messagebox.showerror("Error", "El correo electrónico no es válido")
-    else:
-        messagebox.showinfo("Registro exitoso", "Cliente registrado correctamente")
+        try:
+        cliente = Cliente(nombre, documento, correo)
+        messagebox.showinfo(
+            "Registro exitoso",
+            "Cliente validado correctamente"
+        )
+    except DatosInvalidosError as error:
+        messagebox.showerror("Error", str(error))
 
 ventana = tk.Tk()
 ventana.title("Sistema Integral de Gestión - Fase 4")
