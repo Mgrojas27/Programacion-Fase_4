@@ -7,7 +7,7 @@ def registrar_cliente():
     documento = entrada_documento.get().strip()
     correo = entrada_correo.get().strip()
 
-        try:
+    try:
         cliente = Cliente(nombre, documento, correo)
         messagebox.showinfo(
             "Registro exitoso",
